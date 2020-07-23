@@ -24,6 +24,9 @@
   "projects": {
     "missing-pipe-test": {
       "tags": []
+    },
+    "example-library": {
+      "tags": []
     }
   }
 }

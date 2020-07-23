@@ -97,33 +97,35 @@
         }
       }
     },
-    "missing-pipe-test-e2e": {
-      "root": "apps/missing-pipe-test-e2e",
-      "sourceRoot": "apps/missing-pipe-test-e2e/src",
-      "projectType": "application",
+    "example-library": {
+      "projectType": "library",
+      "root": "libs/example-library",
+      "sourceRoot": "libs/example-library/src",
+      "prefix": "angular-cli-pipe-bug",
       "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/missing-pipe-test-e2e/cypress.json",
-            "tsConfig": "apps/missing-pipe-test-e2e/tsconfig.e2e.json",
-            "devServerTarget": "missing-pipe-test:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "missing-pipe-test:serve:production"
-            }
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/missing-pipe-test-e2e/tsconfig.e2e.json"],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/missing-pipe-test-e2e/**/*"
-            ]
+            "tsConfig": [
+              "libs/example-library/tsconfig.lib.json",
+              "libs/example-library/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/example-library/**/*"]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/example-library/jest.config.js",
+            "tsConfig": "libs/example-library/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/example-library/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
         }
       }
     }
