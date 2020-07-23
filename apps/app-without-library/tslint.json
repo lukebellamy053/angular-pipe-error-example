@@ -1,0 +1,15 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [true, "attribute", "angularCliPipeBug", "camelCase"],
+    "component-selector": [
+      true,
+      "element",
+      "angular-cli-pipe-bug",
+      "kebab-case"
+    ]
+  },
+  "linterOptions": {
+    "exclude": ["!**/*"]
+  }
+}
