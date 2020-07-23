@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "projects": {
+    "missing-pipe-test": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/missing-pipe-test",
+      "sourceRoot": "apps/missing-pipe-test/src",
+      "prefix": "angular-cli-pipe-bug",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/missing-pipe-test",
+            "index": "apps/missing-pipe-test/src/index.html",
+            "main": "apps/missing-pipe-test/src/main.ts",
+            "polyfills": "apps/missing-pipe-test/src/polyfills.ts",
+            "tsConfig": "apps/missing-pipe-test/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/missing-pipe-test/src/favicon.ico",
+              "apps/missing-pipe-test/src/assets"
+            ],
+            "styles": ["apps/missing-pipe-test/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/missing-pipe-test/src/environments/environment.ts",
+                  "with": "apps/missing-pipe-test/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "missing-pipe-test:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "missing-pipe-test:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "missing-pipe-test:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/missing-pipe-test/tsconfig.app.json",
+              "apps/missing-pipe-test/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/missing-pipe-test/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/missing-pipe-test/jest.config.js",
+            "tsConfig": "apps/missing-pipe-test/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/missing-pipe-test/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "missing-pipe-test-e2e": {
+      "root": "apps/missing-pipe-test-e2e",
+      "sourceRoot": "apps/missing-pipe-test-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/missing-pipe-test-e2e/cypress.json",
+            "tsConfig": "apps/missing-pipe-test-e2e/tsconfig.e2e.json",
+            "devServerTarget": "missing-pipe-test:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "missing-pipe-test:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/missing-pipe-test-e2e/tsconfig.e2e.json"],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/missing-pipe-test-e2e/**/*"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "0d4f2744-497e-48e8-bee4-bbd000154398"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "missing-pipe-test"
+}
